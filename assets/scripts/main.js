@@ -4,6 +4,7 @@ let score = document.querySelector(".zoneScore span")
 let reponse = document.getElementById("inputEcriture")
 let compteurScore = 0
 let inputEcriture = document.getElementById("inputEcriture")
+let reponseCorrecte = ''
 
 function initScore() {
     score.innerHTML = compteurScore
@@ -19,17 +20,15 @@ function getPokemon() {
     fetch(`https://tyradex.vercel.app/api/v1/pokemon/${getRandom()}`).then((response) => {
         response.json().then((data) => {
             document.querySelector(".zonePokemon").src = data.sprites.regular
-            let reponseCorrecte = data.name.fr
-            console.log(reponseCorrecte);
+            reponseCorrecte = data.name.fr
         })
     })
 }
-let reponseCorrecte = "test"
 
 function verifierReponse() {
     let reponseDonnee = inputEcriture.value
     console.log(reponseDonnee);
-    if (reponseDonnee === reponseCorrecte){
+    if (reponseDonnee === reponseCorrecte) {
         compteurScore++
         initScore()
     } else {
