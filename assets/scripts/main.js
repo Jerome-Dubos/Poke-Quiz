@@ -1,23 +1,25 @@
 const btnValider = document.getElementById("btnValider")
-let pokemon = document.querySelector(".zonePokemon")
-let score = document.querySelector(".zoneScore span")
-let reponse = document.getElementById("inputEcriture")
+const pokemon = document.querySelector(".zonePokemon")
+const score = document.querySelector(".zoneScore span")
+const reponse = document.getElementById("inputEcriture")
+const inputEcriture = document.getElementById("inputEcriture")
+const listPokemon = "https://tyradex.vercel.app/api/v1/pokemon/"
 let compteurScore = 0
-let inputEcriture = document.getElementById("inputEcriture")
 let reponseCorrecte = ''
 
 function initScore() {
     score.innerHTML = compteurScore
 }
 
+
+
 function getRandom(min, max) {
-    min = 1;
-    max = "https://tyradex.vercel.app/api/v1/pokemon/".length;
-    return Math.floor(Math.random() * (max + 1));
+    max = listPokemon.length
+    return Math.floor(Math.random() * (max) + 1)
 }
 
 function getPokemon() {
-    fetch(`https://tyradex.vercel.app/api/v1/pokemon/${getRandom()}`).then((response) => {
+    fetch(`${listPokemon}${getRandom()}`).then((response) => {
         response.json().then((data) => {
             document.querySelector(".zonePokemon").src = data.sprites.regular
             reponseCorrecte = data.name.fr
@@ -27,7 +29,6 @@ function getPokemon() {
 
 function verifierReponse() {
     let reponseDonnee = inputEcriture.value
-    console.log(reponseDonnee);
     if (reponseDonnee === reponseCorrecte) {
         compteurScore++
         initScore()
@@ -37,9 +38,21 @@ function verifierReponse() {
     inputEcriture.value = ''
 }
 
-btnValider.addEventListener('click', () => {
+function validerReponse() {
     verifierReponse()
     getPokemon()
+}
+
+inputEcriture.addEventListener('keyup', (e) => {
+    if(e.key === 'Enter'){
+        e.preventDefault
+        validerReponse()
+    }
+})
+
+btnValider.addEventListener('click', (event) => {
+    event.preventDefault
+    validerReponse()
 })
 
 getPokemon()
