@@ -1,5 +1,5 @@
-let popupBackground = document.querySelector(".popupBackground")
-let btnLancerJeu = document.querySelector(".lancer-jeu .btn")
+const popupBackground = document.querySelector(".popupBackground")
+const btnLancerJeu = document.querySelector(".lancer-jeu .btn")
 
 function afficherPopup() {
     popupBackground.classList.add("active")

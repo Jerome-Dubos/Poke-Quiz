@@ -92,6 +92,8 @@ button {
     font-size: 17px;
     color: black;
     background-color: #f7f9f9;
+    position: relative;
+    bottom: 5px;
 }
 
 .regles {

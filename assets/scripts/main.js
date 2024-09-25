@@ -1,7 +1,11 @@
+const btnValider = document.getElementById("btnValider")
+
+
+
 function getRandom(min, max) {
     min = 0;
     max = "https://tyradex.vercel.app/api/v1/pokemon/".length;
-    return Math.floor(Math.random() * (max-min+1)) +min;
+    return Math.floor(Math.random() * (max));
 }
 
 function getPokemon() {
@@ -11,5 +15,10 @@ function getPokemon() {
         })  
     })
 }
+
+btnValider.addEventListener('click', () => {
+    getPokemon()
+})
+
 
 getPokemon()
