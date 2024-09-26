@@ -7,11 +7,10 @@ const listPokemon = "https://tyradex.vercel.app/api/v1/pokemon/"
 let compteurScore = 0
 let reponseCorrecte = ''
 
+
 function initScore() {
     score.innerHTML = compteurScore
 }
-
-
 
 function getRandom(min, max) {
     max = listPokemon.length
@@ -27,9 +26,10 @@ function getPokemon() {
     })
 }
 
+
 function verifierReponse() {
     let reponseDonnee = inputEcriture.value
-    if (reponseDonnee === reponseCorrecte) {
+    if (reponseDonnee.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() === reponseCorrecte.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()) {
         compteurScore++
         initScore()
     } else {
