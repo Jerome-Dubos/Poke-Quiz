@@ -21,6 +21,11 @@ btnValider.addEventListener('click', (event) => {
 })
 
 
+
+function endGame(){
+    console.log(`Le jeu est terminé ! Votre score est de ${compteurScore} sur 5.`)
+}
+
 function initScore() {
     score.innerHTML = compteurScore
 }
@@ -30,11 +35,14 @@ function getRandom(min, max) {
 }
 
 function getPokemon() {
-    const rand = getRandom(1, 150)
+    let rand = getRandom(1, 150)
     while(arrayId.includes(rand)){
         rand = getRandom(1, 150)
     }
     arrayId.push(rand)
+    if(arrayId.length > 5){
+        endGame()
+    }
     fetch(`${listPokemon}${rand}`).then((response) => {
         response.json().then((data) => {
             document.querySelector(".zonePokemon").src = data.sprites.regular
@@ -42,7 +50,6 @@ function getPokemon() {
         })
     })
 }
-
 
 function verifierReponse() {
     let reponseDonnee = inputEcriture.value
