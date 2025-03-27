@@ -1,0 +1,515 @@
+:root {
+  --primary-color: #e91e63;
+  --secondary-color: #666666;
+  --accent-color: #4a90e2;
+  --background: #1a1b2e;
+  --modal-bg: rgba(25, 25, 25, 0.95);
+  --text-color: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --success-color: #4caf50;
+  --error-color: #f44336;
+  --pokemon-red: #ff0000;
+  --pokemon-blue: #3b4cca;
+  --pokemon-yellow: #ffd700;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", system-ui, -apple-system, sans-serif;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--background);
+  color: var(--text-color);
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      circle at 0% 0%,
+      rgba(233, 30, 99, 0.15) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(74, 144, 226, 0.15) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(255, 152, 0, 0.15) 0%,
+      transparent 50%
+    ),
+    linear-gradient(180deg, var(--background) 0%, #141526 100%);
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  padding: 2rem;
+  background: var(--modal-bg);
+  border-radius: 16px;
+  max-width: 500px;
+  width: 90%;
+}
+
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  background: linear-gradient(45deg, var(--primary-color) 30%, #ff9eb6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.game-rules {
+  background: rgba(40, 40, 40, 0.95);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+}
+
+.game-rules h2 {
+  font-family: "Poppins", sans-serif;
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.game-rules p,
+.game-rules li {
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.game-rules p {
+  margin-bottom: 1rem;
+}
+
+.game-rules ul {
+  list-style: none;
+}
+
+.game-rules li {
+  margin: 0.5rem 0;
+  padding-left: 1.2rem;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.game-rules li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
+}
+
+.game-rules ul ul {
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.game-rules ul ul li::before {
+  content: "•";
+}
+
+.start-button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: block;
+  margin: 1.5rem auto 0;
+  width: fit-content;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.start-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.score-container,
+.timer-container {
+  background: rgba(35, 35, 35, 0.95);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.pokemon-image {
+  background: rgba(15, 15, 15, 0.95);
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px;
+}
+
+.pokemon-image img {
+  max-width: 200px;
+  height: auto;
+  filter: brightness(0);
+}
+
+.pokemon-image img.hidden {
+  opacity: 0;
+}
+
+.pokemon-image img.revealed {
+  filter: none;
+}
+
+.hints {
+  background: rgba(35, 35, 35, 0.95);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.hints p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.answer-section {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  background: rgba(35, 35, 35, 0.95);
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+input[type="text"]:focus {
+  outline: none;
+  background: rgba(45, 45, 45, 0.95);
+}
+
+button {
+  font-family: "Poppins", sans-serif;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-weight: 500;
+}
+
+#submitAnswer {
+  background: var(--accent-color);
+}
+
+.skip-button {
+  background: #ff9800;
+  opacity: 0.9;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.skip-button:hover:not(:disabled) {
+  opacity: 1;
+  background: #f57c00;
+}
+
+.skip-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.stop-button {
+  background: var(--error-color);
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+.message {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: rgba(35, 35, 35, 0.95);
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-align: center;
+  z-index: 1100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+  min-width: 200px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.message.success {
+  background: rgba(76, 175, 80, 0.95);
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.message.error {
+  background: rgba(244, 67, 54, 0.95);
+  border-color: rgba(244, 67, 54, 0.3);
+}
+
+.message.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Styles pour le leaderboard */
+#leaderboardModal .modal-content {
+  max-width: 400px;
+}
+
+#leaderboardList {
+  margin: 1rem 0;
+}
+
+.leaderboard-item {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+#closeLeaderboard {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+    width: 95%;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  .game-rules {
+    padding: 1rem;
+  }
+
+  .answer-section {
+    flex-direction: column;
+  }
+
+  #submitAnswer,
+  .skip-button {
+    width: 100%;
+  }
+
+  .pokemon-image {
+    padding: 1.5rem;
+    min-height: 200px;
+  }
+
+  .pokemon-image img {
+    max-width: 180px;
+  }
+
+  .hints {
+    padding: 1rem;
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Ajout d'effets de particules */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+}
+
+.modal.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: var(--modal-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+#scoreModal .modal-content {
+  text-align: center;
+}
+
+#scoreModal h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+#finalScore {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.score-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+#playerName {
+  flex: 1;
+}
+
+#saveScore {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .score-input {
+    flex-direction: column;
+  }
+
+  #saveScore {
+    width: 100%;
+  }
+}
+
+#confirmStopModal .modal-content {
+  text-align: center;
+  max-width: 400px;
+}
+
+#confirmStopModal h2 {
+  color: var(--error-color);
+  margin-bottom: 1rem;
+}
+
+#confirmStopModal p {
+  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+#confirmStop {
+  background: var(--error-color);
+}
+
+#cancelStop {
+  background: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+  .modal-buttons {
+    flex-direction: column;
+  }
+
+  #confirmStop,
+  #cancelStop {
+    width: 100%;
+  }
+}

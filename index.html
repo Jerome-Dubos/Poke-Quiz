@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PokéQuiz</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>PokéQuiz</h1>
+      <div class="game-rules">
+        <h2>Règles du jeu</h2>
+        <p>
+          Testez vos connaissances sur les Pokémon de la première génération !
+        </p>
+        <ul>
+          <li>Chaque partie propose 10 Pokémon aléatoires à deviner</li>
+          <li>Vous avez 30 secondes pour deviner chaque Pokémon</li>
+          <li>
+            Les indices vous sont donnés : types, statistiques, catégorie et
+            talents
+          </li>
+          <li>
+            Le score est calculé ainsi :
+            <ul>
+              <li>+10 points de base pour une bonne réponse</li>
+              <li>+1 point par seconde restante</li>
+              <li>Points divisés par 2 en seconde chance</li>
+            </ul>
+          </li>
+          <li>
+            Exemple : Si vous trouvez en 10 secondes = 30 points (10 + 20)
+          </li>
+          <li>
+            Vous pouvez passer un Pokémon difficile et y revenir plus tard avec
+            des points réduits
+          </li>
+        </ul>
+      </div>
+      <button id="startQuiz" class="start-button">Lancer le quiz</button>
+    </div>
+
+    <div id="quizModal" class="modal">
+      <div class="modal-content">
+        <div class="quiz-header">
+          <div class="score-container">Score: <span id="score">0</span></div>
+          <div class="timer-container">Temps: <span id="timer">30</span></div>
+          <button id="stopQuiz" class="stop-button">Arrêter</button>
+        </div>
+
+        <div class="pokemon-image">
+          <img id="pokemonImage" alt="Pokémon" />
+        </div>
+
+        <div class="hints"></div>
+
+        <div class="answer-section">
+          <input
+            type="text"
+            id="pokemonGuess"
+            placeholder="Nom du Pokémon..."
+          />
+          <button id="submitAnswer">Valider</button>
+          <button id="skipButton" class="skip-button">Passer</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="messageModal" class="modal">
+      <div class="modal-content message-content">
+        <p id="messageText"></p>
+        <button id="closeMessage">Continuer</button>
+      </div>
+    </div>
+
+    <div id="leaderboardModal" class="modal">
+      <div class="modal-content">
+        <h2>Meilleurs scores</h2>
+        <div id="leaderboardList"></div>
+        <button id="closeLeaderboard">Fermer</button>
+      </div>
+    </div>
+
+    <div id="scoreModal" class="modal">
+      <div class="modal-content">
+        <h2>Partie terminée !</h2>
+        <p id="finalScore"></p>
+        <div class="score-input">
+          <input
+            type="text"
+            id="playerName"
+            placeholder="Entrez votre nom"
+            maxlength="20"
+          />
+          <button id="saveScore">Sauvegarder</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="confirmStopModal" class="modal">
+      <div class="modal-content">
+        <h2>Arrêter la partie ?</h2>
+        <p>Êtes-vous sûr de vouloir arrêter la partie ?</p>
+        <div class="modal-buttons">
+          <button id="confirmStop">Oui, arrêter</button>
+          <button id="cancelStop">Non, continuer</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
